@@ -31,9 +31,10 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install \
             buildozer==1.6.0 \
-            python-for-android==2024.01.21 \
+            "python-for-android @ git+https://github.com/kivy/python-for-android.git@develop" \
             cython==0.29.33 \
             virtualenv
+          python -m pip install "sh<2.0,>=1.10"
 
       - name: Accept Android licenses & install build-tools
         run: |
