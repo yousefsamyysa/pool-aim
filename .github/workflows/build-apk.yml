@@ -28,8 +28,12 @@ jobs:
           sudo apt install -y unzip wget libffi-dev libssl-dev libltdl-dev \
             autoconf automake libtool pkg-config zlib1g-dev \
             libncurses5-dev cmake libtinfo5
-          pip install --upgrade pip
-          pip install buildozer==1.6.0 cython==0.29.33 virtualenv
+          python -m pip install --upgrade pip
+          python -m pip install \
+            buildozer==1.6.0 \
+            python-for-android==2024.01.21 \
+            cython==0.29.33 \
+            virtualenv
 
       - name: Accept Android licenses & install build-tools
         run: |
@@ -60,6 +64,7 @@ jobs:
 
       - name: Build APK
         run: |
+          rm -rf .buildozer
           buildozer -v android debug
 
       - name: Upload APK

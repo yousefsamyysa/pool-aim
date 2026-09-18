@@ -6,7 +6,7 @@ source.dir = .
 source.include_exts = py,png,jpg,kv,atlas
 version = 0.1
 # requirements: mss removed (desktop only), opencv is p4a recipe name
-requirements = python3,kivy==2.3.0,numpy,opencv,pillow
+requirements = python3,kivy==2.3.0,numpy==1.26.4,opencv,pillow
 orientation = portrait
 fullscreen = 0
 android.permissions = INTERNET,ACCESS_NETWORK_STATE,VIBRATE,WRITE_EXTERNAL_STORAGE,READ_EXTERNAL_STORAGE,CAMERA
