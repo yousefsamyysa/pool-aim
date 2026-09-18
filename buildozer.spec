@@ -6,18 +6,16 @@ source.dir = .
 source.include_exts = py,png,jpg,kv,atlas
 version = 0.1
 # requirements: mss removed (desktop only), opencv is p4a recipe name
-requirements = python3,kivy==2.3.0,numpy==1.26.4,opencv,pillow
+requirements = python3,kivy==2.3.0,numpy,opencv,pillow
 orientation = portrait
 fullscreen = 0
-android.permissions = INTERNET,ACCESS_NETWORK_STATE,VIBRATE,WRITE_EXTERNAL_STORAGE,READ_EXTERNAL_STORAGE,CAMERA
+
 android.api = 33
 android.minapi = 24
 android.ndk = 25b
 android.sdk = 33
 android.build_tools_version = 33.0.2
 p4a.bootstrap = sdl2
-p4a.url = https://github.com/kivy/python-for-android.git
-p4a.branch = develop
 p4a.accept_sdk_license_agreements = True
 android.accept_sdk_license_agreements = True
 android.archs = arm64-v8a, armeabi-v7a

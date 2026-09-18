@@ -28,40 +28,13 @@ jobs:
           sudo apt install -y unzip wget libffi-dev libssl-dev libltdl-dev \
             autoconf automake libtool pkg-config zlib1g-dev \
             libncurses5-dev cmake libtinfo5
+
           python -m pip install --upgrade pip
           python -m pip install \
             buildozer==1.6.0 \
-            "python-for-android @ git+https://github.com/kivy/python-for-android.git@develop" \
+            python-for-android==2024.1.21 \
             cython==0.29.33 \
             virtualenv
-          python -m pip install "sh<2.0,>=1.10"
-
-      - name: Accept Android licenses & install build-tools
-        run: |
-          mkdir -p ~/.buildozer/android/platform
-          # Pre-download SDK/NDK via buildozer (ignore failure)
-          timeout 120 buildozer android update || true
-          # Find sdkmanager
-          SDKMGR=$(find ~/.buildozer -name sdkmanager -type f 2>/dev/null | head -1)
-          if [ -z "$SDKMGR" ]; then
-            SDKMGR="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
-          fi
-          echo "Using sdkmanager: $SDKMGR"
-          ls -lh $(dirname "$SDKMGR")/.. 2>&1 | head -20 || true
-          # Accept licenses
-          yes | "$SDKMGR" --licenses 2>&1 | tail -20 || true
-          yes | "$SDKMGR" --sdk_root=$HOME/.buildozer/android/platform/android-sdk --licenses 2>&1 | tail -20 || true
-          # Install required packages explicitly to buildozer SDK
-          "$SDKMGR" --sdk_root=$HOME/.buildozer/android/platform/android-sdk "build-tools;33.0.2" "platforms;android-33" "platform-tools" 2>&1 | tail -30 || true
-          "$SDKMGR" --sdk_root=$HOME/.buildozer/android/platform/android-sdk --install "build-tools;33.0.2" 2>&1 | tail -30 || true
-          # Also install to system SDK as fallback
-          yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses 2>&1 | tail -5 || true
-          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "build-tools;33.0.2" "platforms;android-33" 2>&1 | tail -10 || true
-          ls -lh ~/.buildozer/android/platform/android-sdk/build-tools/ 2>&1 | head -20 || true
-          ls -lh ~/.buildozer/android/platform/android-sdk/build-tools/33.0.2/ 2>&1 | head -20 || true
-          echo "aidl check:"
-          find ~/.buildozer -name aidl 2>/dev/null | head -5 || true
-          find $ANDROID_HOME -name aidl 2>/dev/null | head -5 || true
 
       - name: Build APK
         run: |
