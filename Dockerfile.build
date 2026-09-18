@@ -1,0 +1,4 @@
+# البديل: بناء بدون الحاجة لسحب الصورة كل مرة
+FROM kivy/buildozer:latest
+WORKDIR /home/user/hostcwd
+CMD ["buildozer", "-v", "android", "debug"]
